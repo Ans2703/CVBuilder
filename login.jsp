@@ -24,10 +24,12 @@
       <h1>Register as a Candidate</h1>
       <form method="POST" action="/register">
         <input name="email"     type="email" placeholder="Email" />
-        <input name="firstName" type="text" placeholder="First Name" />
-        <input name="lastName"  type="text" placeholder="Last Name" />
+        <input name="first_name" type="text" placeholder="First Name" />
+        <input name="last_name"  type="text" placeholder="Last Name" />
         <input name="phone"     type="tel" placeholder="Phone number" />
         <input name="password"  type="password" placeholder="Password" />
+
+        <input name="resource_type" type="hidden" value="candidate" />
   
         <button type="submit">Register</button>
       </form>
@@ -40,6 +42,8 @@
         <input name="name"     type="text" placeholder="Company Name" />
         <input name="phone"    type="tel" placeholder="Phone number" />
         <input name="password" type="password" placeholder="Password" />
+
+        <input name="resource_type" type="hidden" value="company" />
   
         <button type="submit">Register</button>
       </form>

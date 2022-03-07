@@ -8,8 +8,8 @@
   <jsp:body>
     <aside>
       <a href="/dashboard">Dashboard</a>
-      <a href="/dashboard?my-cvs">My CVs</a>
-      <a href="/dashboard?job-applications">Job Applications</a>
+      <a href="/dashboard?page=my-cvs">My CVs</a>
+      <a href="/dashboard?page=job-applications">Job Applications</a>
     </aside>
     <section>
       <h1>My CVs</h1>

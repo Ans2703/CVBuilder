@@ -8,6 +8,6 @@
   <jsp:attribute name="footer">
   </jsp:attribute>
   <jsp:body>
-    <h1>Hello world</h1>
+    <h1>Job Posts</h1>
   </jsp:body>
 </t:layout>

@@ -16,24 +16,30 @@ public class Register extends HttpServlet {
     String resourceType    = request.getParameter("resource_type");
     HttpSession session = request.getSession();
 
-    User newUser = null;
+    if (!password.equals(confirmPassword)) {
+      response.sendRedirect("/login?fail=confirmPassword");
+      return;
+    }
+
+    User user = new User(-1, email, password, phone, "");
+    User newResource = null;
     if (resourceType.equals("candidate")) {
       String firstName = request.getParameter("first_name");
       String lastName = request.getParameter("last_name");
-      newUser = new Candidate(firstName, lastName);
+      newResource = new Candidate(firstName, lastName, user);
     } else if (resourceType.equals("company")) {
       String name = request.getParameter("name");
-      newUser = new Company(name, "");
+      newResource = new Company(name, "", user);
     }
-    newUser.save();
+    newResource.save();
 
     // set session (login)
-    if (newUser == null) {
+    if (newResource == null) {
       response.sendRedirect("/login?fail");
       return;
     }
 
-    App.setCurrentUser(session, newUser.id);
+    App.setCurrentUser(session, newResource.id);
 
     response.sendRedirect("/dashboard");
   }

@@ -28,6 +28,7 @@
         <input name="last_name"  type="text" placeholder="Last Name" />
         <input name="phone"     type="tel" placeholder="Phone number" />
         <input name="password"  type="password" placeholder="Password" />
+        <input name="confirm_password"  type="password" placeholder="Confirm Password" />
 
         <input name="resource_type" type="hidden" value="candidate" />
   

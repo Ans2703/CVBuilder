@@ -15,12 +15,15 @@ public class App {
     return u;
   }
 
+  private static Connection connection = null;
   public static Connection getDBConnection() {
+    if (App.connection != null) return App.connection;
+
     try {
       // Class.forName("com.mysql.jdbc.Driver");
       Class.forName("org.sqlite.JDBC");
-      Connection conn = DriverManager.getConnection("jdbc:sqlite:data.db");
-      return conn;
+      App.connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+      return connection;
     } catch(Exception e) {
       App.log(e.toString());
       return null;

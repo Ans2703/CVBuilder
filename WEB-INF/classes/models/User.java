@@ -28,7 +28,6 @@ public class User {
     this.cvs = new ArrayList<CV>();
   }
 
-  // Fetch from DB
   public static ArrayList<User> getAllUsers() {
     ArrayList<User> users = new ArrayList<User>();
 
@@ -81,8 +80,32 @@ public class User {
   }
 
   public static User getById(Integer id) {
-    // App.
-    return new User();
+    User user = null;
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "SELECT * FROM users WHERE id = %d";
+      String q = String.format(t, id);
+      ResultSet rs = statement.executeQuery(q);
+
+      while (rs.next()) {
+        user = new User(
+          id,
+          rs.getString("email"),
+          rs.getString("password"),
+          rs.getString("phone"),
+          rs.getString("address")
+        );
+        user.resourceType = rs.getString("resource_type");
+        user.resourceId = rs.getInt("resource_id");
+      }
+    } catch(SQLException e) {
+      App.log(e.toString());
+    }
+
+    return user;
   }
 
 }

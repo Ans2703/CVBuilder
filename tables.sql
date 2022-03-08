@@ -14,3 +14,10 @@ CREATE TABLE "candidates" (
 	"last_name"	TEXT,
 	"user_id"	INTEGER
 );
+
+CREATE TABLE "companies" (
+	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"name"	TEXT NOT NULL,
+	"description"	TEXT,
+	"user_id"	INTEGER
+);

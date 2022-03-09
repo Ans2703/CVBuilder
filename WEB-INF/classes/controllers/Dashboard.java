@@ -11,12 +11,17 @@ public class Dashboard extends HttpServlet {
     RequestDispatcher view = request.getRequestDispatcher("dashboard.jsp");
     HttpSession session = request.getSession();
 
+    if (App.getCurrentUser(session)==null){
+      response.sendRedirect("/login");
+      return;
+    }
+
     if (page != null && page.equals("my-cvs")) {
       view = request.getRequestDispatcher("dashboard_my-cvs.jsp");
       request.setAttribute("cvs", App.getCurrentUser(session).cvs);
     }
 
-    session.setAttribute("user", App.getCurrentUser(session));
+    session.setAttribute("user_email", App.getCurrentUser(session).email);
 
     view.forward(request, response);
   }

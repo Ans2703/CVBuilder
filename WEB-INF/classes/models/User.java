@@ -108,4 +108,32 @@ public class User {
     return user;
   }
 
+  public static User findByEmail(String email) {
+    User user = null;
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "SELECT * FROM users WHERE email = '%s'";
+      String q = String.format(t, email);
+      ResultSet rs = statement.executeQuery(q);
+
+      while (rs.next()) {
+        user = new User(
+          rs.getInt("id"),
+          rs.getString("email"),
+          rs.getString("password"),
+          rs.getString("phone"),
+          rs.getString("address")
+        );
+        user.resourceType = rs.getString("resource_type");
+        user.resourceId = rs.getInt("resource_id");
+      }
+    } catch(SQLException e) {
+      App.log(e.toString());
+    }
+
+    return user;
+  }
 }

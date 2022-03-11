@@ -19,7 +19,7 @@ public class Dashboard extends HttpServlet {
 
     if (page != null && page.equals("my-cvs")) {
       view = request.getRequestDispatcher("dashboard_my-cvs.jsp");
-      request.setAttribute("cvs", currentUser.cvs);
+      request.setAttribute("cvs", ((Candidate)currentUser).cvs);
     }
 
     request.setAttribute("user_email", currentUser.email);
@@ -27,6 +27,7 @@ public class Dashboard extends HttpServlet {
     
     if (currentUser.resourceType.equals("candidate")) {
       request.setAttribute("name", ((Candidate)currentUser).getName());
+      request.setAttribute("cv_count", ((Candidate)currentUser).cvs.size());
     } else if (currentUser.resourceType.equals("company")) {
       request.setAttribute("name", ((Company)currentUser).name);
     }

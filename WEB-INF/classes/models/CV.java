@@ -24,6 +24,10 @@ public class CV {
     this.sections     = sections;
     this.designNumber = designNumber;
   }
+
+  public String getTitle() {
+    return this.title;
+  }
 }
 
 class Section {

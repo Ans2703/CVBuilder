@@ -21,7 +21,9 @@
         </c:if>
 
         <c:forEach var="cv" items="${cvs}">
-          ${cv.title}
+          <div>
+            <h3>${cv.title} <small>submitted for 0 jobs.</small></h3>
+          </div>
         </c:forEach>
       </div>
     </section>

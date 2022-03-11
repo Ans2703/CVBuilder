@@ -15,6 +15,9 @@
       <section>
         <h1>Welcome ${name}</h1>
         <h1>Statistics</h1>
+        <div>
+          ${cv_count} CVs
+        </div>
       </section>
     </jsp:body>
   </t:layout>

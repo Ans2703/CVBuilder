@@ -79,6 +79,13 @@ public class User {
     return this;
   }
 
+  public Candidate getCandidate() {
+    if (!this.resourceType.equals("candidate")) {
+      return null;
+    }
+    return Candidate.getByUser(this);
+  }
+
   public static User getById(Integer id) {
     User user = null;
     Connection connection = App.getDBConnection();
@@ -100,6 +107,12 @@ public class User {
         );
         user.resourceType = rs.getString("resource_type");
         user.resourceId = rs.getInt("resource_id");
+
+        if (user.resourceType.equals("candidate")) {
+          user = Candidate.getByUser(user);
+        } else if (user.resourceType.equals("company")) {
+          user = Company.getByUser(user);
+        }
       }
     } catch(SQLException e) {
       App.log(e.toString());

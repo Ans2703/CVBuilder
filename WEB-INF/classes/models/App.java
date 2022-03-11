@@ -11,8 +11,7 @@ public class App {
   }
 
   public static User getCurrentUser(HttpSession session) {
-    User u = User.getById((Integer)session.getAttribute("current_user_id"));
-    return u;
+    return User.getById((Integer)session.getAttribute("current_user_id"));
   }
 
   private static Connection connection = null;

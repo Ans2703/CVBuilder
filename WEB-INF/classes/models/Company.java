@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.sql.*;
 
 public class Company extends User {
+  public Integer id;
   public String name;
   public String description;
 
@@ -15,13 +16,14 @@ public class Company extends User {
     this.resourceType = "company";
   }
 
-  public Company(String name, String description, User user) {
+  public Company(Integer id, String name, String description, User user) {
     super(user.id, user.email, user.password, user.phone, user.address);
     this.resourceType = "company";
 
-    this.name = name;
+    this.id          = id;
+    this.name        = name;
     this.description = description;
-    this.userId = user.id;
+    this.userId      = user.id;
   }
 
   public User save() {
@@ -56,5 +58,31 @@ public class Company extends User {
 
     // connection.close();
     return this;
+  }
+
+  public static Company getByUser(User user) {
+    Company company = null;
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "SELECT * FROM companies WHERE id = %d";
+      String q = String.format(t, user.resourceId);
+      ResultSet rs = statement.executeQuery(q);
+
+      while (rs.next()) {
+        company = new Company(
+          user.resourceId,
+          rs.getString("name"),
+          rs.getString("description"),
+          user
+        );
+      }
+    } catch(SQLException e) {
+      App.log(e.toString());
+    }
+
+    return company;
   }
 }

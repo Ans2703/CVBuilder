@@ -5,6 +5,7 @@ import java.io.*;
 import java.sql.*;
 
 public class Candidate extends User {
+  public Integer id;
   public String firstName;
   public String lastName;
 
@@ -16,13 +17,21 @@ public class Candidate extends User {
     this.resourceType = "candidate";
   }
 
-  public Candidate(String firstName, String lastName, User user) {
+  public Candidate(Integer id, String firstName, String lastName, User user) {
     super(user.id, user.email, user.password, user.phone, user.address);
     this.resourceType = "candidate";
 
+    this.id        = id;
     this.firstName = firstName;
-    this.lastName = lastName;
-    this.userId = user.id;
+    this.lastName  = lastName;
+    this.userId    = user.id;
+
+    this.cvs = new ArrayList<CV>();
+    this.cvs.add(new CV(-1, "mY Cv f0r JaVa", null, null, 1));
+  }
+
+  public String getName() {
+    return this.firstName + " " + this.lastName;
   }
 
   public User save() {
@@ -57,5 +66,31 @@ public class Candidate extends User {
 
     // connection.close();
     return this;
+  }
+
+  public static Candidate getByUser(User user) {
+    Candidate candidate = null;
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "SELECT * FROM candidates WHERE id = %d";
+      String q = String.format(t, user.resourceId);
+      ResultSet rs = statement.executeQuery(q);
+
+      while (rs.next()) {
+        candidate = new Candidate(
+          user.resourceId,
+          rs.getString("first_name"),
+          rs.getString("last_name"),
+          user
+        );
+      }
+    } catch(SQLException e) {
+      App.log(e.toString());
+    }
+
+    return candidate;
   }
 }

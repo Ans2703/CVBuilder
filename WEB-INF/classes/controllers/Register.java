@@ -26,10 +26,10 @@ public class Register extends HttpServlet {
     if (resourceType.equals("candidate")) {
       String firstName = request.getParameter("first_name");
       String lastName = request.getParameter("last_name");
-      newResource = new Candidate(firstName, lastName, user);
+      newResource = new Candidate(-1, firstName, lastName, user);
     } else if (resourceType.equals("company")) {
       String name = request.getParameter("name");
-      newResource = new Company(name, "", user);
+      newResource = new Company(-1, name, "", user);
     }
     newResource.save();
 

@@ -21,3 +21,10 @@ CREATE TABLE "companies" (
 	"description"	TEXT,
 	"user_id"	INTEGER
 );
+
+CREATE TABLE "cvs" (
+	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"user_id"	INTEGER NOT NULL,
+	"title" TEXT NOT NULL,
+	"sections" TEXT,
+);

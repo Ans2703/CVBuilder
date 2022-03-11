@@ -1,4 +1,5 @@
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <t:layout>
   <jsp:attribute name="head">
@@ -13,6 +14,16 @@
     </aside>
     <section>
       <h1>My CVs</h1>
+      <div>
+        <a href="">Create New CV</a>
+        <c:if test="${cvs.size() == 0}">
+          It looks like you don't have any CVs right now. Please click "Create New CV" to create your first CV.
+        </c:if>
+
+        <c:forEach var="cv" items="${cvs}">
+          ${cv.title}
+        </c:forEach>
+      </div>
     </section>
   </jsp:body>
 </t:layout>

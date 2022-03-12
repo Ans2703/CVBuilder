@@ -26,5 +26,7 @@ CREATE TABLE "cvs" (
 	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"user_id"	INTEGER NOT NULL,
 	"title" TEXT NOT NULL,
-	"sections" TEXT,
+	"experience" TEXT,
+	"education" TEXT,
+	"about" TEXT,
 );

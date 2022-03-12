@@ -26,6 +26,14 @@
     <servlet-name>Login Handler</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Creat New CV</servlet-name>
+    <servlet-class>controllers.CV</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Creat New CV</servlet-name>
+    <url-pattern>/CV</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>Dashboard Handler</servlet-name>

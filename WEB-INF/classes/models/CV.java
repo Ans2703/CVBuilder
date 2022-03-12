@@ -6,15 +6,15 @@ public class CV {
   public Integer id;
   public String title;
   public ArrayList<Skill> skills;
-  public String about,education,experience  ;
+  public String about;
+  public String education;
+  public String experience;
   public Integer designNumber;
   public Integer user_id;
 
-  public CV() {
+  
 
-  }
-
-  public CV(Integer id, String title, ArrayList<Skill> skills, String experience,String about,String education, Integer designNumber,Integer user_id) {
+  public CV(Integer id, String title, ArrayList<Skill> skills, String experience, String about, String education, Integer designNumber,Integer user_id) {
     this.id           = id;
     this.title        = title;
     this.skills       = skills;

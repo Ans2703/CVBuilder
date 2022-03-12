@@ -1,11 +1,12 @@
 package controllers;
+
 import models.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CV extends HttpServlet {
+public class CV_Controller extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  RequestDispatcher view = request.getRequestDispatcher("WEB-INF/CreateNewCV.jsp");
       view.forward(request, response);
@@ -21,7 +22,7 @@ public class CV extends HttpServlet {
     User currentUser = App.getCurrentUser(session);
 
 
-    CV cv = new CV(-1,title,new ArrayList<Skill>(),experience,about,education,-1,currentUser.id);
+    models.CV cv = new models.CV(-1,title,new ArrayList<Skill>(),experience,about,education,-1,currentUser.id);
 
   }
 

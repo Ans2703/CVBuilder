@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ tag import="models.App" %>
 <%@tag description="Page template" pageEncoding="UTF-8"%>
 <%@attribute name="head" fragment="true" %>
 <%@attribute name="header" fragment="true" %>
@@ -13,7 +15,12 @@
   <body>
     <nav>
       <a href="/">Home</a>
-      <a href="/login">Login/Register</a>
+      <c:if test="${sessionScope.current_user_id == null}">
+        <a href="/login">Login/Register</a>
+      </c:if>
+      <c:if test="${sessionScope.current_user_id != null}">
+        <a href="/login?action=logout">Logout</a>
+      </c:if>
       <a href="/about">About</a>
     </nav>
     <main>

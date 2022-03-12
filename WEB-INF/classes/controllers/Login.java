@@ -10,8 +10,11 @@ public class Login extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
     HttpSession session = request.getSession();
+    String action = request.getParameter("action");
 
-    request.setAttribute("name", "jojo");
+    if (action != null && action.equals("logout")) {
+      session.invalidate();
+    }
 
     view.forward(request, response);
   }

@@ -43,8 +43,8 @@
                 <c:forEach var="job" items="${jobs}">
                   <div class="job">
                     <h3>${job.title}</h3>
-                    <a href="/edit-job/${job.id}">Edit</button>
-                    <a href="/delete-job/${job.id}">Delete</button>
+                    <a href="/edit-job?id=${job.id}">Edit</button>
+                    <a href="/delete-job?id=${job.id}">Delete</button>
                   </div>
                 </c:forEach>
               </div>

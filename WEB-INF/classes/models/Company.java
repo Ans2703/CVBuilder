@@ -53,12 +53,13 @@ public class Company extends User {
       this.userId = user.id; // not really needed
       connection.commit();
       // TODO: turn on auto commit?
+          connection.close();
+
     } catch(SQLException e) {
       App.log(e.toString());
       return null;
     }
 
-    // connection.close();
     return this;
   }
 

@@ -24,6 +24,43 @@ public class CV {
     this.designNumber = designNumber;
     this.user_id = user_id;
   }
+public static ArrayList getAll(){
+  ArrayList<CV> cvs = new ArrayList<CV>();
+  Connection connection = App.getDBConnection();
+
+  try {
+
+Statement statement=connection.createStatement();
+String q ="select * from cvs";
+ResultSet resultSet = statement.executeQuery(q);
+while(resultSet.next()){
+
+CV getAll = new CV(
+resultSet.getInt("id"),
+resultSet.getString("title"),
+null,
+resultSet.getString("education"),
+resultSet.getString("experience"),
+resultSet.getString("about"),
+null,
+resultSet.getInt("user_id")
+
+);
+cvs.add(getAll);
+}
+connection.close();
+}
+ catch (Exception e) {
+e.printStackTrace();
+ }
+
+ return cvs;
+}
+  public static ArrayList<CV> getAllByUser(Integer id) {
+    ArrayList<CV> cvs = CV.getAll();
+    cvs.removeIf(cv -> !cv.user_id.equals(id));
+    return cvs;
+  }
 
   public String getTitle() {
     return this.title;
@@ -35,7 +72,7 @@ public class CV {
     try {
       Statement statement = connection.createStatement();
 
-      String t = "INSERT INTO CVs (title, experience, education,about, user_id) VALUES('%s','%s', '%s', %d)";
+      String t = "INSERT INTO CVs (title, experience, education,about, user_id) VALUES('%s', '%s','%s', '%s', %d)";
       String q = String.format(t, this.title, this.experience,this.education, this.about, this.user_id);
       int affectedRows = statement.executeUpdate(q);
 
@@ -44,11 +81,11 @@ public class CV {
         rs.next();
         this.id = rs.getInt(1);
       }
+      connection.close();
     } catch(SQLException e) {
       App.log(e.toString());
       return null;
     }
-
     return this;
   }
 }

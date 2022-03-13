@@ -23,6 +23,8 @@ public class CV_Controller extends HttpServlet {
 
 
     models.CV cv = new models.CV(-1,title,new ArrayList<Skill>(),experience,about,education,-1,currentUser.id);
+    cv.save();
+    response.sendRedirect("/dashboard");
 
   }
 

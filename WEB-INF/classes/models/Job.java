@@ -75,11 +75,11 @@ public class Job {
         rs.next();
         this.id = rs.getInt(1);
       }
+      connection.close();
     } catch(SQLException e) {
       App.log(e.toString());
       return null;
     }
-
     return this;
   }
 

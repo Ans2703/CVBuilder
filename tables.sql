@@ -23,12 +23,13 @@ CREATE TABLE "companies" (
 );
 
 CREATE TABLE "cvs" (
-	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"id"	INTEGER NOT NULL,
 	"user_id"	INTEGER NOT NULL,
-	"title" TEXT NOT NULL,
-	"experience" TEXT,
-	"education" TEXT,
-	"about" TEXT,
+	"title"	TEXT NOT NULL,
+	"experience"	TEXT,
+	"education"	TEXT,
+	"about"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 CREATE TABLE "jobs" (

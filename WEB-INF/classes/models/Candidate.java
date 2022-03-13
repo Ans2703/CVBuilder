@@ -26,10 +26,8 @@ public class Candidate extends User {
     this.lastName  = lastName;
     this.userId    = user.id;
 
-    this.cvs = new ArrayList<CV>();
-    // TODO: load real data from DB
-    // this.cvs.add(new CV(-1, "mY Cv f0r JaVa", null, null, 1));
-    // this.cvs.add(new CV(-1, "For applying to mIcRoS0Ftx", null, null, 1));
+      this.cvs = CV.getAllByUser(user.id);
+
   }
 
   public String getName() {
@@ -61,12 +59,13 @@ public class Candidate extends User {
       this.userId = user.id; // not really needed
       connection.commit();
       // TODO: turn on auto commit?
+          connection.close();
+
     } catch(SQLException e) {
       App.log(e.toString());
       return null;
     }
 
-    // connection.close();
     return this;
   }
 

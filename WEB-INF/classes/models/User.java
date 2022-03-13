@@ -49,10 +49,10 @@ public class User {
         );
         users.add(u);
       }
+      connection.close();
     } catch(SQLException e) {
       App.log(e.toString());
     }
-
     return users;
   }
   
@@ -71,11 +71,11 @@ public class User {
         rs.next();
         this.id = rs.getInt(1);
       }
+      connection.close();
     } catch(SQLException e) {
       App.log(e.toString());
       return null;
     }
-
     return this;
   }
 
@@ -114,10 +114,11 @@ public class User {
           user = Company.getByUser(user);
         }
       }
+      connection.close();
+
     } catch(SQLException e) {
       App.log(e.toString());
     }
-
     return user;
   }
 

@@ -14,6 +14,7 @@
     <c:forEach var="job" items="${Job.getAll()}">
       <h3>${job.title} <small>${job.salary} ${job.salaryCurrency}</small> @ ${job.location}</h3>
       <p>${job.description}</p>
+      <a href="" class="px-4 py-1 bg-purple-200 hover:bg-purple-400">Apply</a>
     </c:forEach>
   </jsp:body>
 </t:layout>

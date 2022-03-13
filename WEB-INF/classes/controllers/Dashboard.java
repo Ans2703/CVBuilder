@@ -30,6 +30,7 @@ public class Dashboard extends HttpServlet {
       request.setAttribute("cv_count", ((Candidate)currentUser).cvs.size());
     } else if (currentUser.resourceType.equals("company")) {
       request.setAttribute("name", ((Company)currentUser).name);
+      request.setAttribute("jobs", ((Company)currentUser).jobs);
     }
 
     view.forward(request, response);

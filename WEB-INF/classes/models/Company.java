@@ -24,6 +24,8 @@ public class Company extends User {
     this.name        = name;
     this.description = description;
     this.userId      = user.id;
+
+    this.jobs = Job.getAllByUser(user.id);
   }
 
   public User save() {

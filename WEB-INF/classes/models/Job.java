@@ -2,6 +2,7 @@ package models;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Job {
   public Integer id;
@@ -25,6 +26,10 @@ public class Job {
     this.salaryCurrency = salaryCurrency;
     this.country = country;
     this.location = location;
+  }
+
+  public Integer getId() {
+    return this.id;
   }
 
   public String getTitle() {
@@ -82,7 +87,13 @@ public class Job {
     ArrayList<Job> jobs = new ArrayList<Job>();
     jobs.add(new Job(-1, 1, "Software engineer", "need a html programmer", 2000.00, "USD", "US", "New york"));
     jobs.add(new Job(-1, 1, "Locomotive engineer", "mechanic job", 200.00, "USD", "US", "New york"));
-    jobs.add(new Job(-1, 1, "Video engineer", "record and edit some videos", 5000.00, "USD", "US", "Remote"));
+    jobs.add(new Job(-1, 3, "Video engineer", "record and edit some videos", 5000.00, "USD", "US", "Remote"));
+    return jobs;
+  }
+
+  public static ArrayList<Job> getAllByUser(Integer id) {
+    ArrayList<Job> jobs = Job.getAll();
+    jobs.removeIf(j -> !j.userId.equals(id));
     return jobs;
   }
 }

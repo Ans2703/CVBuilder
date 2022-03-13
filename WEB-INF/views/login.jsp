@@ -12,6 +12,10 @@
       const registerTab = document.querySelector('#register')
       const loginTab = document.querySelector('#login')
       const loginTabBtn = document.querySelector('a[href="#login"]')
+      const registerCompanyTabBtn = document.querySelector('a[href="#register-company"]')
+      const registerCompanyTab = document.querySelector('#register-company')
+      const registerCandidateTab = document.querySelector('#register-candidate')
+      const registerCandidateTabBtn = document.querySelector('a[href="#register-candidate"')
 
       registerTabBtn.addEventListener('click', function () {
         registerTab.style.display = 'block'
@@ -20,6 +24,20 @@
       loginTabBtn.addEventListener('click', function () {
         loginTab.style.display = 'block'
         registerTab.style.display = 'none'
+      })
+      registerCompanyTabBtn.addEventListener('click', function () {
+        this.classList.remove('text-gray-500')
+        this.classList.add('active', 'text-blue-600')
+        registerCandidateTabBtn.classList.remove('active', 'text-blue-600')
+        registerCandidateTab.style.display = 'none'
+        registerCompanyTab.style.display = 'block'
+      })
+      registerCandidateTabBtn.addEventListener('click', function () {
+        this.classList.remove('text-gray-500')
+        this.classList.add('active', 'text-blue-600')
+        registerCompanyTabBtn.classList.remove('active', 'text-blue-600')
+        registerCandidateTab.style.display = 'block'
+        registerCompanyTab.style.display = 'none'
       })
     </script>
   </jsp:attribute>
@@ -40,7 +58,6 @@
 
     <div id="tabs-content">
       <section class="w-full max-w-xs" id="login">
-        <h1>Login</h1>
         <form method="POST" action="/login" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div class="mb-4">
             <input name="email" type="email" placeholder="Email"
@@ -56,8 +73,18 @@
       </section>
 
       <div id="register" style="display: none;">
-        <section class="w-full max-w-xs">
-          <h1>Register as a Candidate</h1>
+        <ul class="flex flex-wrap border-b border-gray-200 dark:border-gray-700">
+          <li class="mr-2">
+            <a href="#register-candidate" aria-current="page"
+              class="inline-block py-4 px-4 text-sm font-medium text-center text-blue-600 rounded-t-lg active">Candidate</a>
+          </li>
+          <li class="mr-2">
+            <a href="#register-company"
+              class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-500 rounded-t-lg hover:text-gray-600 hover:bg-gray-50">Company</a>
+          </li>
+        </ul>
+
+        <section class="w-full max-w-xs" id="register-candidate">
           <form method="POST" action="/register" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <input name="email" type="email" placeholder="Email" />
             <input name="first_name" type="text" placeholder="First Name" />
@@ -72,8 +99,7 @@
           </form>
         </section>
 
-        <section class="w-full max-w-xs">
-          <h1>Register as a Company</h1>
+        <section class="w-full max-w-xs" id="register-company" style="display: none;">
           <form method="POST" action="/register" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <input name="email" type="email" placeholder="Email" />
             <input name="name" type="text" placeholder="Company Name" />

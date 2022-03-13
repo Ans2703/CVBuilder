@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class CV_Controller extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- RequestDispatcher view = request.getRequestDispatcher("WEB-INF/CreateNewCV.jsp");
+ RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/CreateNewCV.jsp");
       view.forward(request, response);
   }
 

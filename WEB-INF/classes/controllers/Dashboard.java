@@ -8,7 +8,7 @@ import models.*;
 public class Dashboard extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String page = request.getParameter("page");
-    RequestDispatcher view = request.getRequestDispatcher("dashboard.jsp");
+    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/dashboard.jsp");
     HttpSession session = request.getSession();
 
     User currentUser = App.getCurrentUser(session);
@@ -18,7 +18,7 @@ public class Dashboard extends HttpServlet {
     }
 
     if (page != null && page.equals("my-cvs")) {
-      view = request.getRequestDispatcher("dashboard_my-cvs.jsp");
+      view = request.getRequestDispatcher("WEB-INF/views/dashboard_my-cvs.jsp");
       request.setAttribute("cvs", ((Candidate)currentUser).cvs);
     }
 

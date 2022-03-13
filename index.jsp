@@ -1,4 +1,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ page import="models.Job" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <t:layout>
   <jsp:attribute name="head">
@@ -8,6 +10,10 @@
   <jsp:attribute name="footer">
   </jsp:attribute>
   <jsp:body>
-    <h1>Job Posts</h1>
+    <h1 class="text-3xl font-bold">Job Posts</h1>
+    <c:forEach var="job" items="${Job.getAll()}">
+      <h3>${job.title} <small>${job.salary} ${job.salaryCurrency}</small> @ ${job.location}</h3>
+      <p>${job.description}</p>
+    </c:forEach>
   </jsp:body>
 </t:layout>

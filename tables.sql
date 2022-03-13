@@ -30,3 +30,20 @@ CREATE TABLE "cvs" (
 	"education" TEXT,
 	"about" TEXT,
 );
+
+CREATE TABLE "jobs" (
+	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"user_id"	INTEGER NOT NULL,
+	"title" TEXT NOT NULL,
+	"description" TEXT,
+	"salary" NUMERIC,
+	"salary_currency" TEXT,
+	"country" TEXT,
+	"location" TEXT
+);
+
+CREATE TABLE "jobs_cvs" (
+	"job_id" INTEGER NOT NULL,
+	"cv_id" INTEGER NOT NULL,
+	"applied_at" TEXT NOT NULL
+);

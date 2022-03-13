@@ -8,7 +8,7 @@ import models.App;
 
 public class Login extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/login.jsp");
     HttpSession session = request.getSession();
     String action = request.getParameter("action");
 

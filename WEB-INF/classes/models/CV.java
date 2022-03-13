@@ -18,17 +18,16 @@ public class CV {
     this.id           = id;
     this.title        = title;
     this.skills       = skills;
-    this.about     = about;
-    this.experience =experience;
-    this.education = education;
+    this.about        = about;
+    this.experience   = experience;
+    this.education    = education;
     this.designNumber = designNumber;
-    this.user_id= user_id;
+    this.user_id = user_id;
   }
 
   public String getTitle() {
     return this.title;
   }
-
 
   public CV save() {
     Connection connection = App.getDBConnection();
@@ -51,18 +50,5 @@ public class CV {
     }
 
     return this;
-  }
-}
-
-class Section {
-  public String title;
-  public String content;
-
-  public Section() {
-  }
-
-  public Section(String title, String content) {
-    this.title = title;
-    this.content = content;
   }
 }

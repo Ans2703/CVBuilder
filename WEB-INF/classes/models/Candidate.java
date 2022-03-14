@@ -59,7 +59,7 @@ public class Candidate extends User {
       this.userId = user.id; // not really needed
       connection.commit();
       // TODO: turn on auto commit?
-          connection.close();
+      connection.close();
 
     } catch(SQLException e) {
       App.log(e.toString());
@@ -88,6 +88,7 @@ public class Candidate extends User {
           user
         );
       }
+      connection.close();
     } catch(SQLException e) {
       App.log(e.toString());
     }

@@ -16,7 +16,7 @@ public class App {
 
   private static Connection connection = null;
   public static Connection getDBConnection() {
-    if (App.connection != null) return App.connection;
+    // if (App.connection != null) return App.connection;
 
     try {
       // Class.forName("com.mysql.jdbc.Driver");
@@ -24,7 +24,7 @@ public class App {
       App.connection = DriverManager.getConnection("jdbc:sqlite:data.db");
       return connection;
     } catch(Exception e) {
-      App.log(e.toString());
+      App.log("App::getDBConnection " + e.toString());
       return null;
     }
   }

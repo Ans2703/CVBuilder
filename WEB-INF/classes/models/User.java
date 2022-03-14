@@ -51,7 +51,7 @@ public class User {
       }
       connection.close();
     } catch(SQLException e) {
-      App.log(e.toString());
+      App.log("User::getAllUsers " + e.toString());
     }
     return users;
   }
@@ -97,7 +97,7 @@ public class User {
       String q = String.format(t, id);
       ResultSet rs = statement.executeQuery(q);
 
-      while (rs.next()) {
+      // rs.next();
         user = new User(
           id,
           rs.getString("email"),
@@ -107,17 +107,17 @@ public class User {
         );
         user.resourceType = rs.getString("resource_type");
         user.resourceId = rs.getInt("resource_id");
+        connection.close();
 
         if (user.resourceType.equals("candidate")) {
           user = Candidate.getByUser(user);
         } else if (user.resourceType.equals("company")) {
           user = Company.getByUser(user);
         }
-      }
-      connection.close();
-
+      
     } catch(SQLException e) {
-      App.log(e.toString());
+      App.log("User::getById " + e.toString());
+      e.printStackTrace();
     }
     return user;
   }
@@ -144,8 +144,9 @@ public class User {
         user.resourceType = rs.getString("resource_type");
         user.resourceId = rs.getInt("resource_id");
       }
+      connection.close();
     } catch(SQLException e) {
-      App.log(e.toString());
+      App.log("User::findByEmail " + e.toString());
     }
 
     return user;

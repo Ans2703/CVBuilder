@@ -13,6 +13,7 @@ public class Login extends HttpServlet {
     String action = request.getParameter("action");
 
     if (action != null && action.equals("logout")) {
+      App.log("invalidating session");
       session.invalidate();
     }
 
@@ -26,14 +27,14 @@ public class Login extends HttpServlet {
 
     User user = User.findByEmail(email);
     // check if credentials match
-    if (!user.password.equals(password)) {
-      response.sendRedirect("/login?fail=password");
+    if (user == null || !user.password.equals(password)) {
+      response.sendRedirect(response.encodeRedirectURL("/login?fail=password"));
       return;
     }
 
     // set session
     App.setCurrentUser(session, user.id);
 
-    response.sendRedirect("/dashboard");
+    response.sendRedirect(response.encodeRedirectURL("/dashboard"));
   }
 }

@@ -24,38 +24,38 @@ public class CV {
     this.designNumber = designNumber;
     this.user_id = user_id;
   }
-public static ArrayList getAll(){
-  ArrayList<CV> cvs = new ArrayList<CV>();
-  Connection connection = App.getDBConnection();
 
-  try {
+  public static ArrayList<CV> getAll() {
+    ArrayList<CV> cvs = new ArrayList<CV>();
+    Connection connection = App.getDBConnection();
 
-Statement statement=connection.createStatement();
-String q ="select * from cvs";
-ResultSet resultSet = statement.executeQuery(q);
-while(resultSet.next()){
+    try {
+      Statement statement = connection.createStatement();
+      String q ="select * from cvs";
+      ResultSet resultSet = statement.executeQuery(q);
 
-CV getAll = new CV(
-resultSet.getInt("id"),
-resultSet.getString("title"),
-null,
-resultSet.getString("education"),
-resultSet.getString("experience"),
-resultSet.getString("about"),
-null,
-resultSet.getInt("user_id")
+      while (resultSet.next()) {
+        CV cv = new CV(
+          resultSet.getInt("id"),
+          resultSet.getString("title"),
+          null,
+          resultSet.getString("education"),
+          resultSet.getString("experience"),
+          resultSet.getString("about"),
+          null,
+          resultSet.getInt("user_id")
+        );
+        cvs.add(cv);
+      }
+      connection.close();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
 
-);
-cvs.add(getAll);
-}
-connection.close();
-}
- catch (Exception e) {
-e.printStackTrace();
- }
+    return cvs;
+  }
 
- return cvs;
-}
   public static ArrayList<CV> getAllByUser(Integer id) {
     ArrayList<CV> cvs = CV.getAll();
     cvs.removeIf(cv -> !cv.user_id.equals(id));

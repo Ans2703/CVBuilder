@@ -13,7 +13,7 @@ public class Dashboard extends HttpServlet {
 
     User currentUser = App.getCurrentUser(session);
     if (currentUser == null){
-      response.sendRedirect("/login");
+      response.sendRedirect(response.encodeRedirectURL("/login?redirect=dashboard"));
       return;
     }
 

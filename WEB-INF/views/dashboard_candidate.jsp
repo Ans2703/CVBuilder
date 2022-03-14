@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <section>
-  <h1>Welcome ${name}</h1>
+  <h1 class="text-center">Welcome ${name}</h1>
   <h1>Statistics</h1>
   <div>
     ${cv_count} CVs

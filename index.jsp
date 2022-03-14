@@ -10,9 +10,9 @@
   <jsp:attribute name="footer">
   </jsp:attribute>
   <jsp:body>
-    <h1 class="text-3xl font-bold">Job Posts</h1>
+    <h1 class="text-3xl text-center font-bold">Job Posts</h1>
     <c:forEach var="job" items="${Job.getAll()}">
-      <div class="max-w-sm rounded overflow-hidden shadow-lg">
+      <div class="max-w-full text-center overflow-hidden shadow-lg">
         <!-- <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains"> -->
         <div class="px-6 py-4">
           <h3 class="font-bold text-xl mb-2">${job.title} <small>${job.salary} ${job.salaryCurrency}/year</small></h3>

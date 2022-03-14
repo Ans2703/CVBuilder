@@ -59,7 +59,7 @@
 
   <servlet>
     <servlet-name>about</servlet-name>
-    <jsp-file>/about.jsp</jsp-file>
+    <jsp-file>/WEB-INF/views/about.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>about</servlet-name>

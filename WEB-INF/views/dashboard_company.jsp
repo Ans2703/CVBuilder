@@ -1,4 +1,4 @@
-<section>
+<section class="text-center">
   <h1>Welcome ${name}</h1>
   <a href="/create-new-job" class="px-4 py-1 bg-purple-200 hover:bg-purple-400">Create New Job</a>
   <c:if test="${jobs.size() == 0}">

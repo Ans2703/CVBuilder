@@ -14,7 +14,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <nav class="flex space-x-4 bg-purple-200">
+    <nav class="justify-center flex space-x-4 bg-purple-200">
       <a href="/" class="px-3 py-2 text-slate-700 font-medium">Home</a>
       <c:if test="${sessionScope.current_user_id == null}">
         <a href="/login" class="px-3 py-2 text-slate-700 font-medium">Login/Register</a>
@@ -23,7 +23,7 @@
         <a href="/dashboard" class="px-3 py-2 text-slate-700 font-medium">Dashboard</a>
         <a href="/login?action=logout" class="px-3 py-2 text-slate-700 font-medium">Logout</a>
       </c:if>
-      <a href="/about" class="px-3 py-2 text-slate-700 font-medium">About</a>
+      <a href="about" class="px-3 py-2 text-slate-700 font-medium">About</a>
     </nav>
     <main>
       <c:if test="${param.error.length() > 0}">

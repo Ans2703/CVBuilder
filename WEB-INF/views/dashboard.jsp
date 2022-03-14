@@ -8,18 +8,7 @@
     </jsp:attribute>
 
     <jsp:body>
-      <aside>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/dashboard?page=my-cvs">My CVs</a>
-        <a href="/dashboard?page=candidate-job-applications">Job Applications</a>
-      </aside>
-      <section>
-        <h1>Welcome ${name}</h1>
-        <h1>Statistics</h1>
-        <div>
-          ${cv_count} CVs
-        </div>
-      </section>
+      <jsp:include page="dashboard_candidate.jsp" />
     </jsp:body>
   </t:layout>
 <% } else if (request.getAttribute("user_type").equals("company")) { %>
@@ -29,33 +18,7 @@
     </jsp:attribute>
 
     <jsp:body>
-      <section>
-        <h1>Welcome ${name}</h1>
-        <a href="/create-new-job">Create New Job</a>
-        <c:if test="${jobs.size() == 0}">
-          You have not created any jobs yet
-        </c:if>
-        <c:if test="${jobs.size() > 0}">
-          <div class="columsn-2">
-            <div class="w-2/5 inline-block">
-              <h2>${jobs.size()} jobs created</h2>
-              <div class="jobs">
-                <c:forEach var="job" items="${jobs}">
-                  <div class="job">
-                    <h3>${job.title}</h3>
-                    <a href="/edit-job?id=${job.id}">Edit</button>
-                    <a href="/delete-job?id=${job.id}">Delete</button>
-                  </div>
-                </c:forEach>
-              </div>
-            </div>
-            <div class="w-2/5 inline-block">
-              y applications recieved
-  
-            </div>
-          </div>
-        </c:if>
-      </section>
+      <jsp:include page="dashboard_company.jsp" />
     </jsp:body>
   </t:layout>
 <% } %>

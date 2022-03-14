@@ -33,7 +33,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Create New CV</servlet-name>
-    <url-pattern>/CV</url-pattern>
+    <url-pattern>/cv</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -54,5 +54,6 @@
     <url-pattern>/create-new-job</url-pattern>
     <url-pattern>/edit-job</url-pattern>
     <url-pattern>/delete-job</url-pattern>
+    <url-pattern>/apply</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -37,11 +37,11 @@ public class Job {
   }
 
   public String getDescription() {
-    return this.description;
+    return this.description.replace("\n", "</br>");
   }
 
-  public Double getSalary() {
-    return this.salary;
+  public String getSalary() {
+    return String.format("%,.2f", this.salary);
   }
 
   public String getSalaryCurrency() {
@@ -66,7 +66,7 @@ public class Job {
     try {
       Statement statement = connection.createStatement();
 
-      String t = "INSERT INTO jobs (user_id, title, description, salary, salary_currency, country, location) VALUES(%d, '%s','%s', %d, '%s', '%s', '%s')";
+      String t = "INSERT INTO jobs (user_id, title, description, salary, salary_currency, country, location) VALUES(%d, '%s','%s', %f, '%s', '%s', '%s')";
       String q = String.format(t, this.userId, this.title, this.description, this.salary, this.salaryCurrency, this.country, this.location);
       int affectedRows = statement.executeUpdate(q);
 
@@ -80,14 +80,68 @@ public class Job {
       App.log(e.toString());
       return null;
     }
+
     return this;
+  }
+
+  public static Job getById(Integer id) {
+    Job job = null;
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "SELECT * FROM jobs WHERE id = %d";
+      String q = String.format(t, id);
+      ResultSet rs = statement.executeQuery(q);
+
+      // rs.next();
+      job = new Job(
+        id,
+        rs.getInt("user_id"),
+        rs.getString("title"),
+        rs.getString("description"),
+        rs.getDouble("salary"),
+        rs.getString("salary_currency"),
+        rs.getString("country"),
+        rs.getString("location")
+      );
+      connection.close();
+    } catch(SQLException e) {
+      App.log("Job::getById " + e.toString());
+      e.printStackTrace();
+    }
+    return job;
   }
 
   public static ArrayList<Job> getAll() {
     ArrayList<Job> jobs = new ArrayList<Job>();
-    jobs.add(new Job(-1, 1, "Software engineer", "need a html programmer", 2000.00, "USD", "US", "New york"));
-    jobs.add(new Job(-1, 1, "Locomotive engineer", "mechanic job", 200.00, "USD", "US", "New york"));
-    jobs.add(new Job(-1, 3, "Video engineer", "record and edit some videos", 5000.00, "USD", "US", "Remote"));
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+      String q ="select * from jobs";
+      ResultSet rs = statement.executeQuery(q);
+
+      while (rs.next()) {
+        Job job = new Job(
+          rs.getInt("id"),
+          rs.getInt("user_id"),
+          rs.getString("title"),
+          rs.getString("description"),
+          rs.getDouble("salary"),
+          rs.getString("salary_currency"),
+          rs.getString("country"),
+          rs.getString("location")
+        );
+        jobs.add(job);
+      }
+      connection.close();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+
     return jobs;
   }
 

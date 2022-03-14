@@ -4,6 +4,7 @@ import javax.servlet.http.*;
 import java.sql.*;
 import java.util.logging.*;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class App {
   public static void setCurrentUser(HttpSession session, Integer userId) {
@@ -27,6 +28,14 @@ public class App {
       App.log("App::getDBConnection " + e.toString());
       return null;
     }
+  }
+
+  public static String getMappedError(String error) {
+    HashMap<String, String> map = new HashMap<String, String>();
+    map.put("invalid-password", "Username or password does not match!");
+    map.put("company-disallowed", "Company accounts cannot apply to a job!");
+
+    return map.get(error);
   }
 
   // for debugging (check logs/catalina.out)

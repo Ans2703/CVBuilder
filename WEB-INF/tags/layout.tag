@@ -26,6 +26,16 @@
       <a href="/about" class="px-3 py-2 text-slate-700 font-medium">About</a>
     </nav>
     <main>
+      <c:if test="${param.error.length() > 0}">
+        <div class="p-3 bg-red-300 text-red-800 text-center">
+          ${App.getMappedError(param.error)}
+        </div>
+      </c:if>
+      <c:if test="${success_message.length() > 0}">
+        <div class="p-3 bg-green-200 text-green-800 text-center">
+          ${success_message}
+        </div>
+      </c:if>
       <jsp:invoke fragment="header"/>
       <jsp:doBody/>
     </main>

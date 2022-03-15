@@ -26,12 +26,19 @@ public class Candidate extends User {
     this.lastName  = lastName;
     this.userId    = user.id;
 
-      this.cvs = CV.getAllByUser(user.id);
-
+    this.cvs = CV.getAllByUser(user.id);
   }
 
   public String getName() {
+    return "xd";
+  }
+
+  public String getFullName() {
     return this.firstName + " " + this.lastName;
+  }
+
+  public ArrayList<Job> getJobsAppliedTo() {
+    return new ArrayList<Job>();
   }
 
   public User save() {

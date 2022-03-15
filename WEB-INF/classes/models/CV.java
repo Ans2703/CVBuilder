@@ -12,17 +12,39 @@ public class CV {
   public Integer designNumber;
   public Integer user_id;
 
-  
-
-  public CV(Integer id, String title, ArrayList<Skill> skills, String experience, String about, String education, Integer designNumber,Integer user_id) {
+  public CV(Integer id, String title, String experience, String about, String education, Integer designNumber,Integer user_id) {
     this.id           = id;
     this.title        = title;
-    this.skills       = skills;
     this.about        = about;
     this.experience   = experience;
     this.education    = education;
     this.designNumber = designNumber;
     this.user_id = user_id;
+
+    this.skills = Skill.getAllByCV(id);
+  }
+
+  public Integer getId() {
+    return this.id;
+  }
+
+  public String getTitle() {
+    return this.title;
+  }
+
+  public String getAbout() {
+    return this.about;
+  }
+  public String getAboutFormatted() {
+    return this.about;
+  }
+
+  public ArrayList<Skill> getSkills() {
+    return this.skills;
+  }
+
+  public ArrayList<Job> getJobsAppliedTo() {
+    return new ArrayList<Job>();
   }
 
   public static ArrayList<CV> getAll() {
@@ -38,11 +60,10 @@ public class CV {
         CV cv = new CV(
           resultSet.getInt("id"),
           resultSet.getString("title"),
-          null,
           resultSet.getString("education"),
           resultSet.getString("experience"),
           resultSet.getString("about"),
-          null,
+          1,
           resultSet.getInt("user_id")
         );
         cvs.add(cv);
@@ -60,10 +81,6 @@ public class CV {
     ArrayList<CV> cvs = CV.getAll();
     cvs.removeIf(cv -> !cv.user_id.equals(id));
     return cvs;
-  }
-
-  public String getTitle() {
-    return this.title;
   }
 
   public CV save() {

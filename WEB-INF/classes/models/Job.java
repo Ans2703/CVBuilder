@@ -37,10 +37,16 @@ public class Job {
   }
 
   public String getDescription() {
+    return this.description;
+  }
+  public String getDescriptionFormatted() {
     return this.description.replace("\n", "</br>");
   }
 
-  public String getSalary() {
+  public Double getSalary() {
+    return this.salary;
+  }
+  public String getSalaryFormatted() {
     return String.format("%,.2f", this.salary);
   }
 

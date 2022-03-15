@@ -28,6 +28,10 @@ public class Company extends User {
     this.jobs = Job.getAllByUser(user.id);
   }
 
+  public String getName() {
+    return this.name;
+  }
+
   public User save() {
     Connection connection = App.getDBConnection();
 

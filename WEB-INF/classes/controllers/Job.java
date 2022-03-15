@@ -9,20 +9,38 @@ import java.util.ArrayList;
 public class Job extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String uri = request.getRequestURI();
-    RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/CreateNewJob.jsp");
+    RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/jobs/CreateNewJob.jsp");
     HttpSession session = request.getSession();
 
-    if (uri.contains("delete-job")) {
-      view = request.getRequestDispatcher("/WEB-INF/views/DeleteJob.jsp");
+    String id = request.getParameter("id");
+    models.Job j = null;
+    if (id != null) {
+      j = models.Job.getById(Integer.parseInt(id));
+    }
+    User currentUser = App.getCurrentUser(session);
+
+    if (uri.contains("edit-job")) {
+      if (j == null || !j.userId.equals(currentUser.id)) {
+        response.sendRedirect("/dashboard?error=invalid-job");
+        return;
+      }
+
+      request.setAttribute("job", j);
+      view = request.getRequestDispatcher("/WEB-INF/views/jobs/EditJob.jsp");
+    } else if (uri.contains("delete-job")) {
+      if (j == null || !j.userId.equals(currentUser.id)) {
+        response.sendRedirect("/dashboard?error=invalid-job");
+        return;
+      }
+
+      request.setAttribute("job", j);
+      view = request.getRequestDispatcher("/WEB-INF/views/jobs/DeleteJob.jsp");
     } else if (uri.contains("apply")) {
-      Integer id = Integer.parseInt(request.getParameter("id"));
-      models.Job j = models.Job.getById(id);
       if (j == null) {
         response.sendRedirect("/?error=invalid-job");
         return;
       }
 
-      User currentUser = App.getCurrentUser(session);
       if (currentUser.resourceType.equals("company")) {
         response.sendRedirect("/?error=company-disallowed");
         return;

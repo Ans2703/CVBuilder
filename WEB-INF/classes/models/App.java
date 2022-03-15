@@ -34,6 +34,7 @@ public class App {
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("invalid-password", "Username or password does not match!");
     map.put("company-disallowed", "Company accounts cannot apply to a job!");
+    map.put("invalid-job", "The job does not exist or you don't have required permissions!");
 
     return map.get(error);
   }

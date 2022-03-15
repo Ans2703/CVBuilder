@@ -21,6 +21,7 @@
       </c:if>
       <c:if test="${sessionScope.current_user_id != null}">
         <a href="/dashboard" class="px-3 py-2 text-slate-700 font-medium">Dashboard</a>
+        <a href="/profile" class="px-3 py-2 text-slate-700 font-medium">Profile</a>
         <a href="/login?action=logout" class="px-3 py-2 text-slate-700 font-medium">Logout</a>
       </c:if>
       <a href="about" class="px-3 py-2 text-slate-700 font-medium">About</a>

@@ -1,18 +1,20 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.sql.*;
+
 public class CV {
   public Integer id;
   public String title;
-  public ArrayList<Skill> skills;
+  public ArrayList<String> skills;
   public String about;
   public String education;
   public String experience;
   public Integer designNumber;
   public Integer user_id;
 
-  public CV(Integer id, String title, String experience, String about, String education, Integer designNumber,Integer user_id) {
+  public CV(Integer id, String title, ArrayList<String> skills, String experience, String about, String education, Integer designNumber,Integer user_id) {
     this.id           = id;
     this.title        = title;
     this.about        = about;
@@ -21,7 +23,7 @@ public class CV {
     this.designNumber = designNumber;
     this.user_id = user_id;
 
-    this.skills = Skill.getAllByCV(id);
+    this.skills = skills;
   }
 
   public Integer getId() {
@@ -39,12 +41,42 @@ public class CV {
     return this.about;
   }
 
-  public ArrayList<Skill> getSkills() {
+  public ArrayList<String> getSkills() {
     return this.skills;
   }
 
   public ArrayList<Job> getJobsAppliedTo() {
     return new ArrayList<Job>();
+  }
+
+  public static CV getById(Integer id) {
+    CV cv = null;
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "SELECT * FROM cvs WHERE id = %d";
+      String q = String.format(t, id);
+      ResultSet rs = statement.executeQuery(q);
+
+      // rs.next();
+      cv = new CV(
+        id,
+        rs.getString("title"),
+        CV.parseSkills(rs.getString("skills")),
+        rs.getString("experience"),
+        rs.getString("about"),
+        rs.getString("education"),
+        1,
+        rs.getInt("user_id")
+      );
+      connection.close();
+    } catch(SQLException e) {
+      App.log("CV::getById " + e.toString());
+      e.printStackTrace();
+    }
+    return cv;
   }
 
   public static ArrayList<CV> getAll() {
@@ -60,9 +92,10 @@ public class CV {
         CV cv = new CV(
           resultSet.getInt("id"),
           resultSet.getString("title"),
-          resultSet.getString("education"),
+          CV.parseSkills(resultSet.getString("skills")),
           resultSet.getString("experience"),
           resultSet.getString("about"),
+          resultSet.getString("education"),
           1,
           resultSet.getInt("user_id")
         );
@@ -104,5 +137,13 @@ public class CV {
       return null;
     }
     return this;
+  }
+
+  private static ArrayList<String> parseSkills(String skills) {
+    ArrayList<String> arr = new ArrayList<String>();
+    if (skills != null)
+      arr = new ArrayList<String>(Arrays.asList(skills.split(",")));
+    
+    return arr;
   }
 }

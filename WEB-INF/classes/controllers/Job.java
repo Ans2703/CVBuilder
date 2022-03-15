@@ -36,6 +36,10 @@ public class Job extends HttpServlet {
       request.setAttribute("job", j);
       view = request.getRequestDispatcher("/WEB-INF/views/jobs/DeleteJob.jsp");
     } else if (uri.contains("apply")) {
+      if (currentUser == null) {
+        response.sendRedirect("/?error=login-required");
+        return;
+      }
       if (j == null) {
         response.sendRedirect("/?error=invalid-job");
         return;
@@ -48,7 +52,7 @@ public class Job extends HttpServlet {
 
       request.setAttribute("job", j);
       request.setAttribute("cvs", ((Candidate)currentUser).cvs);
-      view = request.getRequestDispatcher("/WEB-INF/views/ApplyToJob.jsp");
+      view = request.getRequestDispatcher("/WEB-INF/views/jobs/ApplyToJob.jsp");
     }
 
     view.forward(request, response);
@@ -58,6 +62,8 @@ public class Job extends HttpServlet {
     String uri = request.getRequestURI();
     if (uri.contains("create-new-job")) {
       Job.postCreateJob(request);
+    } else if (uri.contains("apply")) {
+      Job.postApplyJob(request);
     }
 
     response.sendRedirect("/dashboard");
@@ -79,6 +85,12 @@ public class Job extends HttpServlet {
   }
 
   private static void postApplyJob(HttpServletRequest request) {
+    String jobId = request.getParameter("job_id");
+    String cvId = request.getParameter("cv_id");
+    Integer jid = Integer.parseInt(jobId);
+    Integer cid = Integer.parseInt(cvId);
 
+    JobCV jobCV = new JobCV(models.Job.getById(jid), CV.getById(cid), java.time.LocalDateTime.now());
+    jobCV.save();
   }
 }

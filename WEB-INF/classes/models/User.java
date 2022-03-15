@@ -13,7 +13,7 @@ public class User {
   public String resourceType;
   public Integer resourceId;
 
-  public ArrayList<CV> cvs;
+  // public ArrayList<CV> cvs;
 
   public User() {
   }
@@ -25,7 +25,19 @@ public class User {
     this.phone    = phone;
     this.address  = address;
 
-    this.cvs = new ArrayList<CV>();
+    // this.cvs = new ArrayList<CV>();
+  }
+
+  public String getEmail() {
+    return this.email;
+  }
+
+  public String getPhone() {
+    return this.phone;
+  }
+
+  public String getAddress() {
+    return this.address;
   }
 
   public static ArrayList<User> getAllUsers() {

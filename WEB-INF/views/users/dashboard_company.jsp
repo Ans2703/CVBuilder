@@ -36,7 +36,7 @@
       </div>
 
       <div class="md:w-2/5 sm:w-full p-5">
-        <h2 class="text-xl font-bold text-center">CVs Recieved (y)</h2>
+        <h2 class="text-xl font-bold text-center">CVs Recieved (${company.recievedCVs.size()})</h2>
       </div>
     </div>
   </c:if>

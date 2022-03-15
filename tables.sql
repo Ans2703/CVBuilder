@@ -26,6 +26,7 @@ CREATE TABLE "cvs" (
 	"id"	INTEGER NOT NULL,
 	"user_id"	INTEGER NOT NULL,
 	"title"	TEXT NOT NULL,
+	"skills" TEXT,
 	"experience"	TEXT,
 	"education"	TEXT,
 	"about"	TEXT,

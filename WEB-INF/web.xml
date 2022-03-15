@@ -34,6 +34,9 @@
   <servlet-mapping>
     <servlet-name>Create New CV</servlet-name>
     <url-pattern>/cv</url-pattern>
+    <url-pattern>/create-new-cv</url-pattern>
+    <url-pattern>/edit-cv</url-pattern>
+    <url-pattern>/delete-cv</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -43,6 +46,7 @@
   <servlet-mapping>
     <servlet-name>Dashboard Handler</servlet-name>
     <url-pattern>/dashboard</url-pattern>
+    <url-pattern>/profile</url-pattern>
   </servlet-mapping>
 
   <servlet>

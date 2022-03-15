@@ -32,6 +32,10 @@ public class Company extends User {
     return this.name;
   }
 
+  public ArrayList<JobCV> getRecievedCVs() {
+    return new ArrayList<JobCV>();
+  }
+
   public User save() {
     Connection connection = App.getDBConnection();
 

@@ -13,7 +13,7 @@ public class Dashboard extends HttpServlet {
 
     User currentUser = App.getCurrentUser(session);
     if (currentUser == null){
-      response.sendRedirect("/login?redirect=dashboard");
+      response.sendRedirect("/login?error=login-required&redirect=dashboard");
       return;
     }
 
@@ -25,6 +25,7 @@ public class Dashboard extends HttpServlet {
       request.setAttribute("cvs", ((Candidate)currentUser).cvs);
     } else if (currentUser.resourceType.equals("company")) {
       request.setAttribute("name", ((Company)currentUser).name);
+      request.setAttribute("company", (Company)currentUser);
       request.setAttribute("jobs", ((Company)currentUser).jobs);
     }
 

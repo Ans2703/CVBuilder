@@ -8,7 +8,7 @@
 </section>
 <section>
   <c:if test="${cvs.size() == 0}">
-    <p>It looks like you don't have any CVs right now. Please click "Create New CV" to create your first CV.</p>
+    <p class="text-gray-600 text-center p-10">It looks like you don't have any CVs right now. Please click "Create New CV" to create your first CV.</p>
   </c:if>
   <c:if test="${cvs.size() > 0}">
     <div class="flex flex-col md:flex-row">
@@ -27,7 +27,7 @@
               <c:if test="${cv.skills.size() > 0}">
                 <div class="px-6 pt-4 pb-2">
                   <c:forEach var="skill" items="${cv.skills}">
-                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${skill.name}</span>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${skill}</span>
                   </c:forEach>
                 </div>
               </c:if>

@@ -24,18 +24,22 @@ public class Login extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String email = request.getParameter("email");
     String password = request.getParameter("password");
+    String redirectTo = request.getParameter("redirect");
     HttpSession session = request.getSession();
 
     User user = User.findByEmail(email);
     // check if credentials match
     if (user == null || !user.password.equals(password)) {
-      response.sendRedirect("/login?error=invalid-password");
+      response.sendRedirect("/login?error=invalid-password&redirect=" + redirectTo);
       return;
     }
 
     // set session
     App.setCurrentUser(session, user.id);
 
-    response.sendRedirect(response.encodeRedirectURL("/dashboard"));
+    if (redirectTo == null || redirectTo.isEmpty()) {
+      redirectTo = "/dashboard";
+    }
+    response.sendRedirect(redirectTo);
   }
 }

@@ -82,7 +82,7 @@
               <label class="block text-gray-700 text-sm font-bold mb-2">Select Skills <small>(Ctrl/Cmd + click to select multiple)</small></label>
               <select name="skills" multiple class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                 <c:forEach var="skill" items="${App.getSkills()}">
-                  <option value="${skill}">${skill}</option>
+                  <option value="${skill}" ${cv.skills.contains(skill) ? "selected=true" : "" }>${skill}</option>
                 </c:forEach>
               </select>
             </div>
@@ -98,15 +98,15 @@
               <h3>${candidate.address}</h3>
             </section>
 
-            <section id="about"></section>
+            <section id="about" class="mt-10"></section>
   
-            <h2 class="text-xl font-bold">Experience</h2>
+            <h2 class="text-xl font-bold mt-10">Experience</h2>
             <section id="experience"></section>
   
-            <h2 class="text-xl font-bold">Education</h2>
+            <h2 class="text-xl font-bold mt-10">Education</h2>
             <section id="education"></section>
 
-            <h2 class="text-xl font-bold">Skills</h2>
+            <h2 class="text-xl font-bold mt-10">Skills</h2>
             <section id="skills"></section>
           </div>
         </div>

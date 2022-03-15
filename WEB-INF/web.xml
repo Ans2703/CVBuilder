@@ -28,15 +28,15 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>Create New CV</servlet-name>
+    <servlet-name>CV Controller</servlet-name>
     <servlet-class>controllers.CV_Controller</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Create New CV</servlet-name>
-    <url-pattern>/cv</url-pattern>
+    <servlet-name>CV Controller</servlet-name>
     <url-pattern>/create-new-cv</url-pattern>
     <url-pattern>/edit-cv</url-pattern>
     <url-pattern>/delete-cv</url-pattern>
+    <url-pattern>/view-cv</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -46,6 +46,14 @@
   <servlet-mapping>
     <servlet-name>Dashboard Handler</servlet-name>
     <url-pattern>/dashboard</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>User Controller</servlet-name>
+    <servlet-class>controllers.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>User Controller</servlet-name>
     <url-pattern>/profile</url-pattern>
   </servlet-mapping>
 

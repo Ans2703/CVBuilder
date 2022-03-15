@@ -7,7 +7,7 @@ import models.*;
 
 public class Dashboard extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String page = request.getParameter("page");
+    String uri = request.getRequestURI();
     RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/users/dashboard.jsp");
     HttpSession session = request.getSession();
 

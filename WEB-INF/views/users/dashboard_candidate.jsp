@@ -3,8 +3,8 @@
 
 <section class="p-10 bg-blue-200 text-center">
   <h1 class="text-3xl font-bold">Welcome ${candidate.fullName}</h1>
-  <p class="mt-2 text-lg font-serif italic">Create and manage all your CVs and Resumes from here.</p>
-  <a href="/cv" class="px-4 py-1 bg-purple-200 hover:bg-purple-400">Create New CV</a>
+  <p class="my-2 text-lg font-serif italic">Create and manage all your CVs and Resumes from here.</p>
+  <a href="/create-new-cv" class="px-4 py-1 bg-purple-200 hover:bg-purple-400">Create New CV</a>
 </section>
 <section>
   <c:if test="${cvs.size() == 0}">
@@ -41,9 +41,16 @@
       </div>
 
       <div class="md:w-2/5 sm:w-full p-5">
-        <h2 class="text-xl font-bold text-center">Jobs Applied To (${candidate.jobsAppliedTo.size()})</h2>
+        <h2 class="text-xl font-bold text-center mb-2">Jobs Applied To (${candidate.jobsAppliedTo.size()})</h2>
         <c:if test="${candidate.jobsAppliedTo.size() == 0}">
           <p class="text-gray-600 italic">It looks like you have not applied to any jobs yet. Go to job posts page to start applying to jobs using your CVs/Resumes.</p>
+        </c:if>
+        <c:if test="${candidate.jobsAppliedTo.size() > 0}">
+          <c:forEach var="job_cv" items="${candidate.jobsAppliedTo}">
+            <div class="p-5 shadow hover:bg-gray-200">
+              <h3>Applied to ${job_cv.job.title} using ${job_cv.cv.title} at ${job_cv.appliedAtFormatted}</h3>
+            </div>
+          </c:forEach>
         </c:if>
       </div>
     </div>

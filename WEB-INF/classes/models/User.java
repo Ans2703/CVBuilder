@@ -13,8 +13,6 @@ public class User {
   public String resourceType;
   public Integer resourceId;
 
-  // public ArrayList<CV> cvs;
-
   public User() {
   }
 
@@ -24,8 +22,10 @@ public class User {
     this.password = password;
     this.phone    = phone;
     this.address  = address;
+  }
 
-    // this.cvs = new ArrayList<CV>();
+  public Integer getId() {
+    return this.id;
   }
 
   public String getEmail() {
@@ -38,6 +38,10 @@ public class User {
 
   public String getAddress() {
     return this.address;
+  }
+
+  public String getResourceType() {
+    return this.resourceType;
   }
 
   public static ArrayList<User> getAllUsers() {
@@ -69,23 +73,32 @@ public class User {
   }
   
   public User save() {
-    Connection connection = App.getDBConnection();
+    Connection connection = App.getExistingDBConnection();
 
     try {
       Statement statement = connection.createStatement();
 
-      String t = "INSERT INTO users (email, password, phone, address, resource_type, resource_id) VALUES('%s', '%s', '%s', '%s', '%s', %d)";
-      String q = String.format(t, this.email, this.password, this.phone, this.address, this.resourceType, this.resourceId);
+      String q = null;
+      if (this.id == null || this.id == -1) {
+        String t = "INSERT INTO users (email, password, phone, address, resource_type, resource_id) VALUES('%s', '%s', '%s', '%s', '%s', %d)";
+        q = String.format(t, this.email, this.password, this.phone, this.address, this.resourceType, this.resourceId);
+      } else {
+        String t = "UPDATE users SET password='%s', phone='%s', address='%s' WHERE id=%d";
+        q = String.format(t, this.password, this.phone, this.address, this.id);
+      }
+      
       int affectedRows = statement.executeUpdate(q);
 
       if (affectedRows == 1) {
         ResultSet rs = statement.getGeneratedKeys();
         rs.next();
+        App.log("IDbefore=" + this.id);
         this.id = rs.getInt(1);
+        App.log("generatedID=" + this.id);
       }
       connection.close();
     } catch(SQLException e) {
-      App.log(e.toString());
+      App.log("User::save " + e.toString());
       return null;
     }
     return this;

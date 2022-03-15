@@ -29,16 +29,20 @@ public class Candidate extends User {
     this.cvs = CV.getAllByUser(user.id);
   }
 
-  public String getName() {
-    return "xd";
+  public String getFirstName() {
+    return this.firstName;
+  }
+
+  public String getLastName() {
+    return this.lastName;
   }
 
   public String getFullName() {
     return this.firstName + " " + this.lastName;
   }
 
-  public ArrayList<Job> getJobsAppliedTo() {
-    return new ArrayList<Job>();
+  public ArrayList<JobCV> getJobsAppliedTo() {
+    return JobCV.getAllByUser(this.userId);
   }
 
   public User save() {
@@ -48,14 +52,23 @@ public class Candidate extends User {
       connection.setAutoCommit(false);
       Statement statement = connection.createStatement();
 
-      String t = "INSERT INTO candidates (first_name, last_name, user_id) VALUES('%s', '%s', %d)";
-      String q = String.format(t, this.firstName, this.lastName, this.userId);
+      String q = null;
+      if (this.id == null || this.id == -1) {
+        String t = "INSERT INTO candidates (first_name, last_name, user_id) VALUES('%s', '%s', %d)";
+        q = String.format(t, this.firstName, this.lastName, this.userId);
+      } else {
+        String t = "UPDATE candidates first_name='%s', last_name='%s' SET WHERE id=%d";
+        q = String.format(t, this.firstName, this.lastName, this.id);
+      }
+
       int affectedRows = statement.executeUpdate(q);
 
       if (affectedRows == 1) {
         ResultSet rs = statement.getGeneratedKeys();
         rs.next();
+        App.log("c before_update = " + this.resourceId);
         this.resourceId = rs.getInt(1);
+        App.log("c after_update = " + this.resourceId);
       }
 
       User user = super.save();

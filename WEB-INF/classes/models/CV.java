@@ -59,6 +59,10 @@ public class CV {
     return this.skills;
   }
 
+  public Candidate getCandidate() {
+    return (Candidate)User.getById(this.user_id);
+  }
+
   public ArrayList<Job> getJobsAppliedTo() {
     return new ArrayList<Job>();
   }

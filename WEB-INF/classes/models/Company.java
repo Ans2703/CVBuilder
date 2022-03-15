@@ -32,8 +32,12 @@ public class Company extends User {
     return this.name;
   }
 
+  public String getDescription() {
+    return this.description;
+  }
+
   public ArrayList<JobCV> getRecievedCVs() {
-    return new ArrayList<JobCV>();
+    return JobCV.getAllByUser(this.userId);
   }
 
   public User save() {
@@ -43,14 +47,22 @@ public class Company extends User {
       connection.setAutoCommit(false);
       Statement statement = connection.createStatement();
 
-      String t = "INSERT INTO companies (name, description, user_id) VALUES('%s', '%s', %d)";
-      String q = String.format(t, this.name, this.description, this.userId);
-      int affectedRows = statement.executeUpdate(q);
+      String q = null;
+      if (this.id == null || this.id == -1) {
+        String t = "INSERT INTO companies (name, description, user_id) VALUES('%s', '%s', %d)";
+        q = String.format(t, this.name, this.description, this.userId);
+      } else {
+        String t = "UPDATE companies SET name='%s', description='%s' WHERE id=%d";
+        q = String.format(t, this.name, this.description, this.id);
+      }
 
+      int affectedRows = statement.executeUpdate(q);
       if (affectedRows == 1) {
         ResultSet rs = statement.getGeneratedKeys();
         rs.next();
+        App.log("com bef=" + this.resourceId);
         this.resourceId = rs.getInt(1);
+        App.log("com after=" + this.resourceId);
       }
 
       User user = super.save();
@@ -64,7 +76,7 @@ public class Company extends User {
       connection.close();
 
     } catch(SQLException e) {
-      App.log(e.toString());
+      App.log("Company::save " + e.toString());
       return null;
     }
 

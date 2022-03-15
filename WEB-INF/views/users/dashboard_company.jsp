@@ -36,7 +36,17 @@
       </div>
 
       <div class="md:w-2/5 sm:w-full p-5">
-        <h2 class="text-xl font-bold text-center">CVs Recieved (${company.recievedCVs.size()})</h2>
+        <h2 class="text-xl font-bold text-center mb-2">CVs Recieved (${company.recievedCVs.size()})</h2>
+        <c:if test="${company.recievedCVs.size() == 0}">
+          <p class="text-gray-600 italic">You have not recieved any job applications yet. Look back later.</p>
+        </c:if>
+        <c:if test="${company.recievedCVs.size() > 0}">
+          <c:forEach var="job_cv" items="${company.recievedCVs}">
+            <div class="p-5 shadow hover:bg-gray-200">
+              <h3>${job_cv.cv.candidate.fullName} applied to ${job_cv.job.title} using <a href="/view-cv?id=${job_cv.cv.id}" target="_blank" class="text-purple-600">${job_cv.cv.title}</a> at ${job_cv.appliedAtFormatted}</h3>
+            </div>
+          </c:forEach>
+        </c:if>
       </div>
     </div>
   </c:if>

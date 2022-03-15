@@ -59,6 +59,7 @@
     <div id="tabs-content">
       <section class="w-full max-w-xs" id="login">
         <form method="POST" action="/login" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <input name="redirect" type="hidden" value="${param.redirect}" />
           <div class="mb-4">
             <input name="email" type="email" placeholder="Email"
               class="shadow appearance-none border w-full py-2 px-3" />

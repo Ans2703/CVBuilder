@@ -20,6 +20,7 @@ public class Candidate extends User {
   public Candidate(Integer id, String firstName, String lastName, User user) {
     super(user.id, user.email, user.password, user.phone, user.address);
     this.resourceType = "candidate";
+    this.resourceId = id;
 
     this.id        = id;
     this.firstName = firstName;

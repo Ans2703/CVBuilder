@@ -19,6 +19,7 @@ public class Company extends User {
   public Company(Integer id, String name, String description, User user) {
     super(user.id, user.email, user.password, user.phone, user.address);
     this.resourceType = "company";
+    this.resourceId = id;
 
     this.id          = id;
     this.name        = name;

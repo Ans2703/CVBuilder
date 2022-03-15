@@ -96,7 +96,7 @@ public class User {
         this.id = rs.getInt(1);
         App.log("generatedID=" + this.id);
       }
-      connection.close();
+      // connection.close();
     } catch(SQLException e) {
       App.log("User::save " + e.toString());
       return null;

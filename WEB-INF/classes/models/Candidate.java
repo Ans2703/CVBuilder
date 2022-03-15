@@ -58,7 +58,7 @@ public class Candidate extends User {
         String t = "INSERT INTO candidates (first_name, last_name, user_id) VALUES('%s', '%s', %d)";
         q = String.format(t, this.firstName, this.lastName, this.userId);
       } else {
-        String t = "UPDATE candidates first_name='%s', last_name='%s' SET WHERE id=%d";
+        String t = "UPDATE candidates SET first_name='%s', last_name='%s' WHERE id=%d";
         q = String.format(t, this.firstName, this.lastName, this.id);
       }
 

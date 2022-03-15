@@ -41,6 +41,20 @@ public class CV {
     return this.about;
   }
 
+  public String getExperience() {
+    return this.experience;
+  }
+  public String getExperienceFormatted() {
+    return this.experience;
+  }
+
+  public String getEducation() {
+    return this.education;
+  }
+  public String getEducationFormatted() {
+    return this.education;
+  }
+
   public ArrayList<String> getSkills() {
     return this.skills;
   }
@@ -122,8 +136,15 @@ public class CV {
     try {
       Statement statement = connection.createStatement();
 
-      String t = "INSERT INTO CVs (title, experience, education,about, user_id) VALUES('%s', '%s','%s', '%s', %d)";
-      String q = String.format(t, this.title, this.experience,this.education, this.about, this.user_id);
+      String q = null;
+      if (this.id == null || this.id.equals(-1)) {
+        String t = "INSERT INTO cvs (title, skills, experience, education, about, user_id) VALUES('%s', '%s', '%s','%s', '%s', %d)";
+        q = String.format(t, this.title, String.join(",", this.skills), this.experience, this.education, this.about, this.user_id);
+      } else {
+        String t = "UPDATE cvs SET title='%s', skills='%s', experience='%s', education='%s', about='%s', user_id=%d WHERE id=%d";
+        q = String.format(t, this.title, String.join(",", this.skills), this.experience, this.education, this.about, this.user_id, this.id);
+      }
+
       int affectedRows = statement.executeUpdate(q);
 
       if (affectedRows == 1) {

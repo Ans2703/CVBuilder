@@ -40,6 +40,14 @@ public class App {
     return map.get(error);
   }
 
+  public static String[] getSkills() {
+    String[] skills = {
+      "HTML", "CSS", "JavaScript", "Java", "C", "C++", "C#", "Objective C", "Swift", "Kotlin", "Lua",
+      "Rust", "Ruby", "Ruby on Rails", ".NET", "ASP.NET", "Python", "Django", "ReactJS", "React Native"
+    };
+    return skills;
+  }
+
   // for debugging (check logs/catalina.out)
   public static void log(String msg) {
     System.out.println(msg);

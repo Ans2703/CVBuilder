@@ -37,6 +37,10 @@ public class Company extends User {
     return this.description;
   }
 
+  public ArrayList<Job> getJobs() {
+    return this.jobs;
+  }
+
   public ArrayList<JobCV> getRecievedCVs() {
     return JobCV.getAllByUser(this.userId);
   }

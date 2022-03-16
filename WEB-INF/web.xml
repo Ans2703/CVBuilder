@@ -29,7 +29,7 @@
 
   <servlet>
     <servlet-name>CV Controller</servlet-name>
-    <servlet-class>controllers.CV_Controller</servlet-class>
+    <servlet-class>controllers.CVController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>CV Controller</servlet-name>

@@ -156,4 +156,29 @@ public class Job {
     jobs.removeIf(j -> !j.userId.equals(id));
     return jobs;
   }
+
+  public static void deleteById(Integer id) {
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "DELETE FROM jobs WHERE id=%d";
+      String q = String.format(t, id);
+
+      int affectedRows = statement.executeUpdate(q);
+
+      // Also delete entries in jobs_cvs
+      if (affectedRows == 1) {
+        t = "DELETE FROM jobs_cvs WHERE job_id=%d";
+        q = String.format(t, id);
+
+        affectedRows = statement.executeUpdate(q);
+      }
+
+      connection.close();
+    } catch(SQLException e) {
+      App.log("Job::deleteById " + e.toString());
+    }
+  }
 }

@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.sql.*;
+import java.util.stream.Collectors;
 
 public class CV {
   public Integer id;
@@ -64,7 +65,10 @@ public class CV {
   }
 
   public ArrayList<Job> getJobsAppliedTo() {
-    return new ArrayList<Job>();
+    return JobCV.getAllByUser(this.user_id).stream()
+            .filter(job_cv -> job_cv.cv.id.equals(this.id))
+            .map(job_cv -> job_cv.job)
+            .collect(Collectors.toCollection(ArrayList::new));
   }
 
   public static CV getById(Integer id) {
@@ -162,6 +166,31 @@ public class CV {
       return null;
     }
     return this;
+  }
+
+  public static void deleteById(Integer id) {
+    Connection connection = App.getDBConnection();
+
+    try {
+      Statement statement = connection.createStatement();
+
+      String t = "DELETE FROM cvs WHERE id=%d";
+      String q = String.format(t, id);
+
+      int affectedRows = statement.executeUpdate(q);
+
+      // Also delete entries in jobs_cvs
+      if (affectedRows == 1) {
+        t = "DELETE FROM jobs_cvs WHERE cv_id=%d";
+        q = String.format(t, id);
+
+        affectedRows = statement.executeUpdate(q);
+      }
+
+      connection.close();
+    } catch(SQLException e) {
+      App.log("CV::deleteById " + e.toString());
+    }
   }
 
   private static ArrayList<String> parseSkills(String skills) {

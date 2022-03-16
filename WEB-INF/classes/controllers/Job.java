@@ -64,6 +64,10 @@ public class Job extends HttpServlet {
       Job.postCreateJob(request);
     } else if (uri.contains("apply")) {
       Job.postApplyJob(request);
+    } else if (uri.contains("delete-job")) {
+      String _id = request.getParameter("id");
+      Integer id = Integer.parseInt(_id);
+      models.Job.deleteById(id);
     }
 
     response.sendRedirect("/dashboard");

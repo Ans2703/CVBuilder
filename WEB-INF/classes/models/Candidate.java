@@ -42,6 +42,10 @@ public class Candidate extends User {
     return this.firstName + " " + this.lastName;
   }
 
+  public ArrayList<CV> getCvs() {
+    return this.cvs;
+  }
+
   public ArrayList<JobCV> getJobsAppliedTo() {
     return JobCV.getAllByUser(this.userId);
   }

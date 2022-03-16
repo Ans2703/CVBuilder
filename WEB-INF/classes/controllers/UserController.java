@@ -11,6 +11,12 @@ public class UserController extends HttpServlet {
     RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/users/Profile.jsp");
     User currentUser = App.getCurrentUser(session);
 
+    String id = request.getParameter("id");
+    if (id != null && !id.isEmpty()) {
+      currentUser = User.getById(Integer.parseInt(id));
+      view = request.getRequestDispatcher("/WEB-INF/views/users/ViewProfile.jsp");
+    }
+
     if (currentUser.resourceType.equals("candidate")) {
       request.setAttribute("user", (Candidate)currentUser);
     } else if (currentUser.resourceType.equals("company")) {

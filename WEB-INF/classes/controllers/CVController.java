@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.net.URLEncoder;
 
-public class CV_Controller extends HttpServlet {
+public class CVController extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String uri = request.getRequestURI();
     RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/cvs/CreateNewCV.jsp");
@@ -36,6 +36,14 @@ public class CV_Controller extends HttpServlet {
       request.setAttribute("cv", cv);
       request.setAttribute("candidate", (Candidate)User.getById(cv.user_id));
       view = request.getRequestDispatcher("/WEB-INF/views/cvs/ViewCV.jsp");
+    } else if (uri.contains("delete-cv")) {
+      if (cv == null || !cv.user_id.equals(currentUser.id)) {
+        response.sendRedirect("/dashboard?error=invalid-cv");
+        return;
+      }
+
+      request.setAttribute("cv", cv);
+      view = request.getRequestDispatcher("/WEB-INF/views/cvs/DeleteCV.jsp");
     }
 
     view.forward(request, response);
@@ -52,9 +60,11 @@ public class CV_Controller extends HttpServlet {
     }
 
     if (uri.contains("create-new-cv") || uri.contains("edit-cv")) {
-      CV_Controller.postCreateCV(request);
+      CVController.postCreateCV(request);
     } else if (uri.contains("delete-cv")) {
-      // TODO
+      String _id = request.getParameter("id");
+      Integer id = Integer.parseInt(_id);
+      CV.deleteById(id);
     }
 
     response.sendRedirect("/dashboard");
